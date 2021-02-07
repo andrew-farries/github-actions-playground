@@ -1,0 +1,12 @@
+name: My Cool Workflow
+
+on: push
+
+jobs:
+  say-hello:
+    name: Say hello
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say hello
+        run: echo hello world
