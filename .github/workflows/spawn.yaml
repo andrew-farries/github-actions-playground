@@ -3,14 +3,18 @@ name: Use Spawn Actions
 on: push
 
 jobs:
-  create-container:
-    name: Create container
+  use-container:
+    name: Use container
     runs-on: ubuntu-latest
     steps:
       - name: create empty pg container
+        id: create
         uses: red-gate/spawn-ci-plugins/github/data-container/create@run-as-root
         with:
           dataImage: 11780 # An empty postgres image
+      - name: delete container
+        uses: red-gate/spawn-ci-plugins/github/data-container/delete@run-as-root
+        with:
+          dataContainer: ${{ steps.create.outputs.dataContainerName }}
 env:
   SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
-
