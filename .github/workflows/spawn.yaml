@@ -11,3 +11,6 @@ jobs:
         uses: red-gate/spawn-ci-plugins/github/data-container/create@run-as-root
         with:
           dataImage: 11780 # An empty postgres image
+env:
+  SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
+
