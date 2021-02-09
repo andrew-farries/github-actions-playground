@@ -12,6 +12,14 @@ jobs:
         uses: red-gate/spawn-ci-plugins/github/data-container/create@run-as-root
         with:
           dataImage: 11780 # An empty postgres image
+      - name: save container
+        uses: red-gate/spawn-ci-plugins/github/data-container/save@run-as-root
+        with:
+          dataContainer: ${{ steps.create.outputs.dataContainerName }}
+      - name: reset container
+        uses: red-gate/spawn-ci-plugins/github/data-container/reset@run-as-root
+        with:
+          dataContainer: ${{ steps.create.outputs.dataContainerName }}
       - name: delete container
         uses: red-gate/spawn-ci-plugins/github/data-container/delete@run-as-root
         with:
