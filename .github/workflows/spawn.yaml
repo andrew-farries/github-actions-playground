@@ -12,7 +12,7 @@ jobs:
         uses: red-gate/spawn-ci-plugins/github/data-container/create@add-lifetime-to-container-create
         with:
           dataImage: 11780 # An empty postgres image
-          lifetime: '2h'
+          lifetime: '5h'
       - name: save container
         uses: red-gate/spawn-ci-plugins/github/data-container/save@add-lifetime-to-container-create
         with:
