@@ -1,0 +1,36 @@
+# When the cache action hits, the action restores the cached files to
+# the `path` argument. If there is a miss, then the contents of `path` are cached
+# if the job succeeds.
+name: Cache demo
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  cache-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get date
+      id: get-date
+      run: |
+        echo "::set-output name=date::$(date -u "+%Y/%m/%d %H:%M")"
+
+    - name: Cache something
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: my-cache
+        key: ${{ steps.get-date.outputs.date }}
+
+    - name: Expensive step
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        echo "missed the cache!"
+        echo "Recalculating result"
+        mkdir -p my-cache
+        echo "value-created-at $(date -u "+%Y/%m/%d %H:%M:%S")" > my-cache/result
+
+    - name: Use the result
+      run: |
+        cat my-cache/result
