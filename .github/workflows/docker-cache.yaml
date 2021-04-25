@@ -13,4 +13,4 @@ jobs:
     - name: Docker build
       run: |
         docker buildx create --use
-        docker build -t temp -f docker-buildx/Dockerfile docker-buildx --cache-to=type=local,dest=cache
+        docker buildx build -t temp -f docker-buildx/Dockerfile docker-buildx --cache-to=type=local,dest=cache
