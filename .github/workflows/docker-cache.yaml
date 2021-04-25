@@ -31,4 +31,4 @@ jobs:
 
     - name: ls cache
       run: |
-        ls cache
+        ls /tmp/.buildx-cache
