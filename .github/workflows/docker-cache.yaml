@@ -10,10 +10,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Cache Docker Layers
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Cache miss!
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        echo "Cache miss!"
+
     - name: Docker build
       run: |
         docker buildx create --use
-        docker buildx build -t temp -f docker-buildx/Dockerfile docker-buildx --cache-to=type=local,dest=cache
+        docker buildx build -t temp -f docker-buildx/Dockerfile docker-buildx --cache-from=type=local,src=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache
 
     - name: ls cache
       run: |
