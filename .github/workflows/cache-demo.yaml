@@ -21,7 +21,7 @@ jobs:
       id: cache
       with:
         path: my-cache
-        key: ${{ steps.get-date.outputs.date }}
+        key: date-${{ steps.get-date.outputs.date }}
 
     - name: Expensive step
       if: steps.cache.outputs.cache-hit != 'true'
