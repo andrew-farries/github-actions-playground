@@ -1,0 +1,15 @@
+name: Docker Cache Demo
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  cache-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Docker build
+      run: |
+        docker build -t temp -f docker-buildx/Dockerfile docker-buildx
