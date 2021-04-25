@@ -21,7 +21,9 @@ jobs:
       id: cache
       with:
         path: my-cache
-        key: date-${{ steps.get-date.outputs.date }}
+        key: ${{ runner.os }}-date-${{ steps.get-date.outputs.date }}
+        restore-keys: |
+          ${{ runner.os }}-date-
 
     - name: Expensive step
       if: steps.cache.outputs.cache-hit != 'true'
@@ -29,7 +31,7 @@ jobs:
         echo "missed the cache!"
         echo "Recalculating result"
         mkdir -p my-cache
-        echo "value-created-at $(date -u "+%Y/%m/%d %H:%M:%S")" > my-cache/result
+        echo "value-created-at $(date -u "+%Y/%m/%d %H:%M:%S")" >> my-cache/result
 
     - name: Use the result
       run: |
