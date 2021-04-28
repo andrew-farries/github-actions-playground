@@ -1,5 +1,9 @@
 name: Docker Cache Demo
 
+# A trivial example that demonstrates using the buildx --cache-from and --cache-to
+# arguments to with the actions/cache action to preserve the docker build cache between
+# builds.
+
 on:
   workflow_dispatch: {}
 
