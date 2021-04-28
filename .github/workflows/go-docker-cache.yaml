@@ -1,0 +1,42 @@
+name: Docker Cache Demo
+
+# A trivial example that demonstrates using the buildx --cache-from and --cache-to
+# arguments to with the actions/cache action to preserve the docker build cache between
+# builds.
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  cache-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache Docker Layers
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Cache miss!
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        echo "Cache miss!"
+
+    - name: ls cache
+      run: |
+        ls -R /tmp/.buildx-cache
+
+    - name: Docker build
+      run: |
+        docker buildx create --use
+        docker buildx build -t temp -f go-with-buildx/Dockerfile go-with-buildx --cache-from=type=local,src=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache
+
+    - name: ls cache
+      run: |
+        ls -R /tmp/.buildx-cache
