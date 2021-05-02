@@ -1,4 +1,4 @@
-FROM golang:1.15.11-stretch
+FROM golang:1.15.11-stretch AS builder
 
 WORKDIR /app
 COPY go.mod go.sum .
@@ -6,4 +6,8 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -o main
 
-ENTRYPOINT ["/app/main"]
+FROM scratch
+
+COPY --from=builder /app/main .
+
+ENTRYPOINT ["./main"]
