@@ -14,6 +14,9 @@ jobs:
         with:
           dataImage: 11780 # An empty postgres image
           lifetime: '5h'
+      - name: Show data container name
+        run: |
+          echo "${{ steps.create.outputs.dataContainerName }}"
       - name: save container
         uses: red-gate/spawn-ci-plugins/github/data-container/save@main
         with:
