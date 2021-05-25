@@ -10,10 +10,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: ls
-        run: |
-          ls
       - name: Use my-action custom action
         uses: ./my-action
+        id: hello
         with:
           who-to-greet: 'bob'
+      - name: Display timestamp
+        run: |
+          echo "The time was ${{ steps.hello.outputs.time }}"
