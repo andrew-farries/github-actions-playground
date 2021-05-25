@@ -9,20 +9,20 @@ jobs:
     steps:
       - name: create empty pg container
         id: create
-        uses: red-gate/spawn-ci-plugins/github/data-container/create@add-lifetime-to-container-create
+        uses: red-gate/spawn-ci-plugins/github/data-container/create
         with:
           dataImage: 11780 # An empty postgres image
           lifetime: '5h'
       - name: save container
-        uses: red-gate/spawn-ci-plugins/github/data-container/save@add-lifetime-to-container-create
+        uses: red-gate/spawn-ci-plugins/github/data-container/save@main
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
       - name: reset container
-        uses: red-gate/spawn-ci-plugins/github/data-container/reset@add-lifetime-to-container-create
+        uses: red-gate/spawn-ci-plugins/github/data-container/reset@main
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
       - name: delete container
-        uses: red-gate/spawn-ci-plugins/github/data-container/delete@add-lifetime-to-container-create
+        uses: red-gate/spawn-ci-plugins/github/data-container/delete@main
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
 env:
