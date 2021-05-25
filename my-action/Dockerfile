@@ -2,4 +2,4 @@ FROM alpine:latest
 
 COPY entrypoint.sh entrypoint.sh
 
-RUN ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
