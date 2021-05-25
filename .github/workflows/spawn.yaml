@@ -1,6 +1,7 @@
 name: Use Spawn Actions
 
-on: push
+on:
+  workflow_dispatch: {}
 
 jobs:
   use-container:
@@ -9,7 +10,7 @@ jobs:
     steps:
       - name: create empty pg container
         id: create
-        uses: red-gate/spawn-ci-plugins/github/data-container/create
+        uses: red-gate/spawn-ci-plugins/github/data-container/create@main
         with:
           dataImage: 11780 # An empty postgres image
           lifetime: '5h'
