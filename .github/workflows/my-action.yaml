@@ -1,0 +1,19 @@
+name: Use Custom Action
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  use-container:
+    name: Use custom action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: ls
+        run: |
+          ls
+      - name: Use my-action custom action
+        uses: ./my-action
+        with:
+          who-to-greet: 'bob'
