@@ -9,6 +9,8 @@ inputs:
 outputs:
   time: # id of output
     description: 'The time we greeted you'
+  launch-codes:
+    description: 'Top secret launch codes'
 runs:
   using: 'docker'
   image: 'Dockerfile'
