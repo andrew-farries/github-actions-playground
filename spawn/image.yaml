@@ -1,0 +1,4 @@
+sourceType: empty
+name: gh-action-empty-pg
+engine: postgresql
+version: 11.0

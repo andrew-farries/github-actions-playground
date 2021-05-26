@@ -8,23 +8,28 @@ jobs:
     name: Exercise Spawn GH Actions
     runs-on: ubuntu-latest
     steps:
-      - name: create empty pg container
-        id: create
-        uses: red-gate/spawn-ci-plugins/github/data-container/create@symlink-to-dockerfile
+      - name: create data image
+        id: create-image
+        uses: red-gate/spawn-ci-plugins/github/data-image/create@symlink-to-dockerfile
         with:
-          dataImage: 11780 # An empty postgres image
+          dataImageYaml: spawn/image.yaml
+      - name: create empty pg container
+        id: create-container
+        uses: red-gate/spawn-ci-plugins/github/data-container/create-container@symlink-to-dockerfile
+        with:
+          dataImage: ${{ steps.create-image.outputs.dataImageName }}
           lifetime: '5h'
       - name: save container
         uses: red-gate/spawn-ci-plugins/github/data-container/save@symlink-to-dockerfile
         with:
-          dataContainer: ${{ steps.create.outputs.dataContainerName }}
+          dataContainer: ${{ steps.create-container.outputs.dataContainerName }}
       - name: reset container
         uses: red-gate/spawn-ci-plugins/github/data-container/reset@symlink-to-dockerfile
         with:
-          dataContainer: ${{ steps.create.outputs.dataContainerName }}
+          dataContainer: ${{ steps.create-container.outputs.dataContainerName }}
       - name: delete container
         uses: red-gate/spawn-ci-plugins/github/data-container/delete@symlink-to-dockerfile
         with:
-          dataContainer: ${{ steps.create.outputs.dataContainerName }}
+          dataContainer: ${{ steps.create-container.outputs.dataContainerName }}
 env:
   SPAWNCTL_ACCESS_TOKEN: ${{ secrets.SPAWNCTL_ACCESS_TOKEN }}
