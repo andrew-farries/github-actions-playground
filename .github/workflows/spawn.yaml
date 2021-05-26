@@ -4,8 +4,8 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  use-container:
-    name: Use container
+  exercise-actions:
+    name: Exercise Spawn GH Actions
     runs-on: ubuntu-latest
     steps:
       - name: create empty pg container
