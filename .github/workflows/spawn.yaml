@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: create empty pg container
         id: create
-        uses: red-gate/spawn-ci-plugins/github/data-container/create@main
+        uses: red-gate/spawn-ci-plugins/github/data-container/create@symlink-to-dockerfile
         with:
           dataImage: 11780 # An empty postgres image
           lifetime: '5h'
@@ -18,15 +18,15 @@ jobs:
         run: |
           echo "${{ steps.create.outputs.dataContainerName }}"
       - name: save container
-        uses: red-gate/spawn-ci-plugins/github/data-container/save@main
+        uses: red-gate/spawn-ci-plugins/github/data-container/save@symlink-to-dockerfile
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
       - name: reset container
-        uses: red-gate/spawn-ci-plugins/github/data-container/reset@main
+        uses: red-gate/spawn-ci-plugins/github/data-container/reset@symlink-to-dockerfile
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
       - name: delete container
-        uses: red-gate/spawn-ci-plugins/github/data-container/delete@main
+        uses: red-gate/spawn-ci-plugins/github/data-container/delete@symlink-to-dockerfile
         with:
           dataContainer: ${{ steps.create.outputs.dataContainerName }}
 env:
