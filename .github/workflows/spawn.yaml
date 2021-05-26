@@ -16,7 +16,7 @@ jobs:
           dataImageYaml: spawn/image.yaml
       - name: create empty pg container
         id: create-container
-        uses: red-gate/spawn-ci-plugins/github/data-container/create-container@symlink-to-dockerfile
+        uses: red-gate/spawn-ci-plugins/github/data-container/create@symlink-to-dockerfile
         with:
           dataImage: ${{ steps.create-image.outputs.dataImageName }}
           lifetime: '5h'
