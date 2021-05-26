@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: |
+          ls
       - name: create data image
         id: create-image
         uses: red-gate/spawn-ci-plugins/github/data-image/create@symlink-to-dockerfile
