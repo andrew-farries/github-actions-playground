@@ -1,0 +1,13 @@
+name: Whoami
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  whoami:
+    name: whoami
+    runs-on: ubuntu-latest
+    steps:
+      - name: whoami
+        run: |
+          whoami
