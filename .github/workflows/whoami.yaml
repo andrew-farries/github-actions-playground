@@ -11,3 +11,6 @@ jobs:
       - name: whoami
         run: |
           whoami
+          sudo touch foo
+          pwd
+          ls -l
